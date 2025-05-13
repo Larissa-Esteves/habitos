@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+  <div class="py-5 text-center bg-light rounded shadow-sm">
+    <div class="container">
+      <h1 class="display-5 fw-bold text-primary">Bem-vindo aos seus Hábitos Diários</h1>
+      <p class="lead mt-3 mb-4">Organize, acompanhe e melhore seus hábitos todos os dias.</p>
+
+      {% if user.is_authenticated %}
+        <a href="{% url 'listar-habito' %}" class="btn btn-success btn-lg px-4 gap-3">Ver meus hábitos</a>
+      {% else %}
+        <div class="d-flex justify-content-center gap-3">
+          <a href="{% url 'login' %}" class="btn btn-primary btn-lg px-4">Login</a>
+          <a href="{% url 'registro' %}" class="btn btn-outline-primary btn-lg px-4">Registrar</a>
+        </div>
+        <p class="mt-3 text-muted">Acesse sua conta para gerenciar seus hábitos.</p>
+      {% endif %}
+    </div>
+  </div>
+{% endblock %}

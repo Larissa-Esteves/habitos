@@ -1,0 +1,63 @@
+{% extends "layout.html" %}
+
+{% block title %}Meus Hábitos{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+
+  <h2 class="mb-4 text-center text-primary fw-bold">Meus Hábitos</h2>
+
+  <!-- Alerta de mensagens -->
+  {% if messages %}
+    <div class="mb-4">
+      {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+          {{ message }}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fechar"></button>
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+
+  <div class="table-responsive">
+    <table class="table table-bordered table-hover align-middle shadow-sm">
+      <thead class="table-dark text-center">
+        <tr>
+          <th>Selecionar</th> <!-- Coluna para o checkbox -->
+          <th>Hábito</th>
+          <th>Descrição</th>
+          <th>Editar</th>
+          <th>Excluir</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for habito in habitos %}
+          <tr>
+            <td class="text-center">
+              <!-- Checkbox para selecionar o hábito -->
+              <input type="checkbox" name="selected_habits" value="{{ habito.pk }}" class="form-check-input">
+            </td>
+            <td class="fw-bold">{{ habito.nome }}</td>
+            <td>{{ habito.descricao }}</td>
+            <td class="text-center">
+              <a href="{% url 'editar-habito' habito.pk %}" class="btn btn-sm btn-outline-primary">Editar</a>
+            </td>
+            <td class="text-center">
+              <a href="{% url 'confirmar_exclusao' habito.pk %}" class="btn btn-sm btn-outline-danger">Excluir</a>
+            </td>
+          </tr>
+        {% empty %}
+          <tr>
+            <td colspan="5" class="text-center text-muted">Você ainda não tem hábitos cadastrados.</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <div class="d-flex justify-content-center gap-3 mt-4">
+    <a href="{% url 'criar-habito' %}" class="btn btn-success">➕ Adicionar Hábito</a>
+    <a href="{% url 'index' %}" class="btn btn-secondary">🏠 Voltar à Home</a>
+  </div>
+</div>
+{% endblock %}

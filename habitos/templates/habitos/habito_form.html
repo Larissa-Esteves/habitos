@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+
+{% block title %}Novo Hábito{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+  <h2 class="mb-4 text-center text-primary fw-bold">Adicionar Novo Hábito</h2>
+
+  <div class="card shadow-sm">
+    <div class="card-body">
+      <form method="post">
+        {% csrf_token %}
+        
+        <div class="mb-3">
+          <label for="id_nome" class="form-label">Nome do Hábito</label>
+          {{ form.nome }}
+        </div>
+        
+        <div class="mb-3">
+          <label for="id_descricao" class="form-label">Descrição</label>
+          {{ form.descricao }}
+        </div>
+
+        <div class="d-flex justify-content-start gap-2 mt-4">
+          <a href="{% url 'listar-habito' %}" class="btn btn-outline-secondary">Cancelar</a>
+          <button type="submit" class="btn btn-success">Salvar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}
